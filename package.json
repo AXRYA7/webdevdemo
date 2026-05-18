@@ -1,0 +1,33 @@
+{
+  "name": "enkonix",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-ready ENKONIX UI implementation inspired by the supplied Figma designs.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "react",
+    "vite",
+    "tailwindcss",
+    "bootstrap",
+    "figma"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.9.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.4",
+    "@vitejs/plugin-react-swc": "^4.3.0",
+    "tailwindcss": "^4.2.4",
+    "vite": "^8.0.11"
+  }
+}
