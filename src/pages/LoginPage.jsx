@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import AuthShell from "../components/AuthShell";
+import PasswordField from "../components/PasswordField";
 import { useAuth } from "../context/AuthContext";
 import { useLocale } from "../context/LocaleContext";
 
@@ -11,10 +12,10 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [mode, setMode] = useState(location.state?.mode === "admin" ? "admin" : "user");
   const [formState, setFormState] = useState({
-    email: "",
+    email: location.state?.email ?? "",
     password: "",
   });
-  const [feedback, setFeedback] = useState("");
+  const [feedback, setFeedback] = useState(location.state?.feedback ?? "");
 
   if (currentUser) {
     return <Navigate to={isAdmin ? "/admin/dashboard" : "/"} replace />;
@@ -110,11 +111,10 @@ export default function LoginPage() {
             <label className="form-label" htmlFor="loginPassword">
               {t("auth.fields.password")}
             </label>
-            <input
+            <PasswordField
               id="loginPassword"
               name="password"
               className="form-control app-form-control"
-              type="password"
               value={formState.password}
               onChange={handleChange}
               placeholder={t("auth.login.passwordPlaceholder")}

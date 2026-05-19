@@ -5,6 +5,22 @@ const STORE_KEY = "enkonix-admin-store-v2";
 const SESSION_KEY = "enkonix-current-user-id-v2";
 const STORE_VERSION = 3;
 const ADMIN_EMAIL = "admin@aarya.enkonix.com";
+const DUMMY_USER_IDS = new Set([
+  "user-james",
+  "user-priya",
+  "user-mateo",
+  "user-lena",
+  "user-omar",
+  "user-nina",
+]);
+const DUMMY_USER_EMAILS = new Set([
+  "james@enkonix.com",
+  "priya@enkonix.com",
+  "mateo@enkonix.com",
+  "lena@enkonix.com",
+  "omar@enkonix.com",
+  "nina@enkonix.com",
+]);
 
 const AuthContext = createContext(null);
 
@@ -96,6 +112,17 @@ function isLegacyRemovedUser(user) {
   );
 }
 
+function isDummySeededUser(user) {
+  if (!user) {
+    return false;
+  }
+
+  return (
+    DUMMY_USER_IDS.has(user.id) ||
+    DUMMY_USER_EMAILS.has(normalizeEmail(user.email ?? ""))
+  );
+}
+
 function migrateUser(user) {
   if (!user) {
     return user;
@@ -119,7 +146,9 @@ function migrateStore(store) {
   return {
     ...store,
     version: STORE_VERSION,
-    users: store.users.filter((user) => !isLegacyRemovedUser(user)).map(migrateUser),
+    users: store.users
+      .filter((user) => !isLegacyRemovedUser(user) && !isDummySeededUser(user))
+      .map(migrateUser),
     notifications: store.version === STORE_VERSION ? store.notifications : [],
   };
 }
@@ -140,96 +169,6 @@ function createInitialStore() {
       lastLoginAt: isoDate({ hoursAgo: 3 }),
       loginCount: 58,
       loginHistory: historyFromOffsets([0, 1, 2, 4, 6, 9, 12, 18]),
-    },
-    {
-      id: "user-james",
-      firstName: "James",
-      lastName: "Cole",
-      email: "james@enkonix.com",
-      password: "User@123",
-      country: "United States",
-      role: "user",
-      status: "inactive",
-      createdAt: isoDate({ daysAgo: 12 }),
-      updatedAt: isoDate({ daysAgo: 9 }),
-      lastLoginAt: isoDate({ daysAgo: 14 }),
-      loginCount: 3,
-      loginHistory: historyFromOffsets([14, 15, 18]),
-    },
-    {
-      id: "user-priya",
-      firstName: "Priya",
-      lastName: "Sharma",
-      email: "priya@enkonix.com",
-      password: "User@123",
-      country: "India",
-      role: "user",
-      status: "active",
-      createdAt: isoDate({ monthsAgo: 1, daysAgo: 10 }),
-      updatedAt: isoDate({ daysAgo: 2 }),
-      lastLoginAt: isoDate({ daysAgo: 2 }),
-      loginCount: 17,
-      loginHistory: historyFromOffsets([2, 4, 6, 8, 11, 17]),
-    },
-    {
-      id: "user-mateo",
-      firstName: "Mateo",
-      lastName: "Silva",
-      email: "mateo@enkonix.com",
-      password: "User@123",
-      country: "Brazil",
-      role: "user",
-      status: "blocked",
-      createdAt: isoDate({ monthsAgo: 2, daysAgo: 8 }),
-      updatedAt: isoDate({ daysAgo: 7 }),
-      lastLoginAt: isoDate({ daysAgo: 25 }),
-      loginCount: 4,
-      loginHistory: historyFromOffsets([25, 27, 30, 33]),
-    },
-    {
-      id: "user-lena",
-      firstName: "Lena",
-      lastName: "Morris",
-      email: "lena@enkonix.com",
-      password: "User@123",
-      country: "Germany",
-      role: "user",
-      status: "active",
-      createdAt: isoDate({ monthsAgo: 3, daysAgo: 6 }),
-      updatedAt: isoDate({ daysAgo: 3 }),
-      lastLoginAt: isoDate({ daysAgo: 3 }),
-      loginCount: 12,
-      loginHistory: historyFromOffsets([3, 5, 7, 10, 15, 21]),
-    },
-    {
-      id: "user-omar",
-      firstName: "Omar",
-      lastName: "Naeem",
-      email: "omar@enkonix.com",
-      password: "User@123",
-      country: "United Arab Emirates",
-      role: "user",
-      status: "inactive",
-      createdAt: isoDate({ monthsAgo: 4, daysAgo: 10 }),
-      updatedAt: isoDate({ daysAgo: 18 }),
-      lastLoginAt: isoDate({ daysAgo: 21 }),
-      loginCount: 5,
-      loginHistory: historyFromOffsets([21, 24, 29, 36]),
-    },
-    {
-      id: "user-nina",
-      firstName: "Nina",
-      lastName: "Patel",
-      email: "nina@enkonix.com",
-      password: "User@123",
-      country: "United Kingdom",
-      role: "user",
-      status: "active",
-      createdAt: isoDate({ monthsAgo: 5, daysAgo: 12 }),
-      updatedAt: isoDate({ daysAgo: 4 }),
-      lastLoginAt: isoDate({ daysAgo: 1 }),
-      loginCount: 21,
-      loginHistory: historyFromOffsets([1, 2, 4, 5, 6, 12, 19]),
     },
   ];
 
@@ -446,14 +385,14 @@ export function AuthProvider({ children }) {
       lastName: payload.lastName.trim(),
       email: normalizedEmail,
       password: payload.password,
-      country: payload.country,
+      country: payload.country.trim(),
       role: "user",
       status: "active",
       createdAt: now,
       updatedAt: now,
-      lastLoginAt: now,
-      loginCount: 1,
-      loginHistory: [now],
+      lastLoginAt: null,
+      loginCount: 0,
+      loginHistory: [],
     };
     const fullName = buildDisplayName(newUser.firstName, newUser.lastName);
 
@@ -470,12 +409,11 @@ export function AuthProvider({ children }) {
       ].slice(0, 18),
     }));
 
-    setCurrentUserId(newUser.id);
-
     return {
       ok: true,
       message: t("auth.feedback.accountCreated"),
       role: "user",
+      email: newUser.email,
     };
   }
 
@@ -555,6 +493,111 @@ export function AuthProvider({ children }) {
       message: t("auth.feedback.userCreatedSuccessfully"),
       role: "user",
       userId: newUser.id,
+    };
+  }
+
+  function requestPasswordReset(email) {
+    if (!email.trim()) {
+      return {
+        ok: false,
+        message: t("auth.feedback.forgotEmailRequired"),
+      };
+    }
+
+    const normalizedEmail = canonicalizeEmail(email);
+    const matchedUser = store.users.find(
+      (user) => canonicalizeEmail(user.email) === normalizedEmail,
+    );
+
+    if (!matchedUser) {
+      return {
+        ok: false,
+        message: t("auth.feedback.accountNotFound"),
+      };
+    }
+
+    if (matchedUser.status === "blocked") {
+      return {
+        ok: false,
+        message: t("auth.feedback.blockedAccount"),
+      };
+    }
+
+    return {
+      ok: true,
+      email: matchedUser.email,
+      message: t("auth.feedback.resetRequestAccepted"),
+    };
+  }
+
+  function resetPassword({ email, password, confirmPassword }) {
+    if (!email.trim()) {
+      return {
+        ok: false,
+        message: t("auth.feedback.resetRequestExpired"),
+      };
+    }
+
+    if (!password.trim() || !confirmPassword.trim()) {
+      return {
+        ok: false,
+        message: t("auth.feedback.completePasswordReset"),
+      };
+    }
+
+    if (password !== confirmPassword) {
+      return {
+        ok: false,
+        message: t("auth.feedback.passwordsDoNotMatch"),
+      };
+    }
+
+    if (password.trim().length < 6) {
+      return {
+        ok: false,
+        message: t("auth.feedback.shortPassword"),
+      };
+    }
+
+    const normalizedEmail = canonicalizeEmail(email);
+    const matchedUser = store.users.find(
+      (user) => canonicalizeEmail(user.email) === normalizedEmail,
+    );
+
+    if (!matchedUser) {
+      return {
+        ok: false,
+        message: t("auth.feedback.accountNotFound"),
+      };
+    }
+
+    if (matchedUser.status === "blocked") {
+      return {
+        ok: false,
+        message: t("auth.feedback.blockedAccount"),
+      };
+    }
+
+    const now = new Date().toISOString();
+
+    setStore((previousStore) => ({
+      ...previousStore,
+      users: previousStore.users.map((user) =>
+        user.id === matchedUser.id
+          ? {
+              ...user,
+              password,
+              updatedAt: now,
+            }
+          : user,
+      ),
+    }));
+
+    return {
+      ok: true,
+      email: matchedUser.email,
+      role: matchedUser.role,
+      message: t("auth.feedback.passwordResetSuccessful"),
     };
   }
 
@@ -747,6 +790,8 @@ export function AuthProvider({ children }) {
         login,
         register,
         createUser,
+        requestPasswordReset,
+        resetPassword,
         logout,
         updateUser,
         deleteUser,

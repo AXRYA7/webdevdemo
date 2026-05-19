@@ -1,9 +1,58 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import AuthShell from "../components/AuthShell";
+import PasswordField from "../components/PasswordField";
+import { useAuth } from "../context/AuthContext";
 import { useLocale } from "../context/LocaleContext";
 
 export default function ResetPasswordPage() {
+  const { resetPassword } = useAuth();
   const { t } = useLocale();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const resetEmail = location.state?.email ?? "";
+  const [formState, setFormState] = useState({
+    password: "",
+    confirmPassword: "",
+  });
+  const [feedback, setFeedback] = useState(location.state?.feedback ?? "");
+
+  if (!resetEmail) {
+    return <Navigate to="/auth/forgot-password" replace />;
+  }
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setFormState((currentValue) => ({
+      ...currentValue,
+      [name]: value,
+    }));
+    setFeedback("");
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const result = resetPassword({
+      email: resetEmail,
+      password: formState.password,
+      confirmPassword: formState.confirmPassword,
+    });
+
+    if (!result.ok) {
+      setFeedback(result.message);
+      return;
+    }
+
+    navigate("/auth/login", {
+      state: {
+        email: result.email,
+        feedback: result.message,
+        mode: result.role === "admin" ? "admin" : "user",
+      },
+    });
+  }
 
   return (
     <AuthShell
@@ -16,16 +65,32 @@ export default function ResetPasswordPage() {
         </Link>
       }
     >
-      <form className="auth-form" onSubmit={(event) => event.preventDefault()}>
+      {feedback ? <div className="form-alert">{feedback}</div> : null}
+
+      <form className="auth-form" onSubmit={handleSubmit}>
         <div className="space-y-3">
+          <div>
+            <label className="form-label" htmlFor="resetEmail">
+              {t("auth.fields.email")}
+            </label>
+            <input
+              id="resetEmail"
+              className="form-control app-form-control"
+              type="email"
+              value={resetEmail}
+              readOnly
+            />
+          </div>
           <div>
             <label className="form-label" htmlFor="resetPassword">
               {t("auth.fields.newPassword")}
             </label>
-            <input
+            <PasswordField
               id="resetPassword"
+              name="password"
               className="form-control app-form-control"
-              type="password"
+              value={formState.password}
+              onChange={handleChange}
               placeholder={t("auth.reset.passwordPlaceholder")}
             />
           </div>
@@ -33,10 +98,12 @@ export default function ResetPasswordPage() {
             <label className="form-label" htmlFor="resetConfirmPassword">
               {t("auth.fields.confirmPassword")}
             </label>
-            <input
+            <PasswordField
               id="resetConfirmPassword"
+              name="confirmPassword"
               className="form-control app-form-control"
-              type="password"
+              value={formState.confirmPassword}
+              onChange={handleChange}
               placeholder={t("auth.reset.confirmPasswordPlaceholder")}
             />
           </div>

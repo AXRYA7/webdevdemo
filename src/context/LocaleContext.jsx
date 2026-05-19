@@ -600,6 +600,10 @@ const translations = {
       ],
     },
     auth: {
+      actions: {
+        showPassword: "Show",
+        hidePassword: "Hide",
+      },
       fields: {
         email: "Email",
         password: "Password",
@@ -656,6 +660,7 @@ const translations = {
       },
       feedback: {
         enterCredentials: "Enter both your email and password to continue.",
+        forgotEmailRequired: "Enter your email address to continue.",
         accountNotFound: "We couldn't find an account with that email.",
         blockedAccount: "This account is blocked. Please contact the administrator.",
         useUserLogin: "Use the user login tab for standard user accounts.",
@@ -663,11 +668,16 @@ const translations = {
         invalidPassword: "The password you entered is incorrect.",
         loginSuccessful: "Login successful.",
         completeRegistration: "Complete all registration fields before creating an account.",
+        completePasswordReset: "Enter and confirm your new password to continue.",
         shortPassword: "Use a password with at least 6 characters.",
+        resetRequestAccepted: "Account found. Set your new password to continue.",
+        passwordsDoNotMatch: "The password confirmation does not match.",
+        resetRequestExpired: "Start again from the forgot password page.",
+        passwordResetSuccessful: "Password updated. Log in with your new password.",
         blockedRegistration:
           "This email is blocked and cannot be used for registration until it is unblocked.",
         accountExists: "An account with that email already exists.",
-        accountCreated: "Account created successfully.",
+        accountCreated: "Account created successfully. Log in to continue.",
         userNotFound: "That user could not be found.",
         allFieldsRequired: "All user fields are required before saving changes.",
         emailConflict: "Another account is already using that email.",
@@ -1363,6 +1373,10 @@ const translations = {
       ],
     },
     auth: {
+      actions: {
+        showPassword: "إظهار",
+        hidePassword: "إخفاء",
+      },
       fields: {
         email: "البريد الإلكتروني",
         password: "كلمة المرور",
@@ -1419,6 +1433,7 @@ const translations = {
       },
       feedback: {
         enterCredentials: "أدخل البريد الإلكتروني وكلمة المرور للمتابعة.",
+        forgotEmailRequired: "أدخل عنوان بريدك الإلكتروني للمتابعة.",
         accountNotFound: "لم نتمكن من العثور على حساب بهذا البريد الإلكتروني.",
         blockedAccount: "هذا الحساب محظور. يرجى التواصل مع المسؤول.",
         useUserLogin: "استخدم تبويب دخول المستخدم للحسابات العادية.",
@@ -1426,10 +1441,15 @@ const translations = {
         invalidPassword: "كلمة المرور التي أدخلتها غير صحيحة.",
         loginSuccessful: "تم تسجيل الدخول بنجاح.",
         completeRegistration: "أكمل جميع حقول التسجيل قبل إنشاء الحساب.",
+        completePasswordReset: "أدخل كلمة المرور الجديدة وأكدها للمتابعة.",
         shortPassword: "استخدم كلمة مرور لا تقل عن 6 أحرف.",
+        resetRequestAccepted: "تم العثور على الحساب. عيّن كلمة مرور جديدة للمتابعة.",
+        passwordsDoNotMatch: "تأكيد كلمة المرور غير مطابق.",
+        resetRequestExpired: "ابدأ من جديد من صفحة نسيت كلمة المرور.",
+        passwordResetSuccessful: "تم تحديث كلمة المرور. سجّل الدخول باستخدام كلمة المرور الجديدة.",
         blockedRegistration: "هذا البريد الإلكتروني محظور ولا يمكن استخدامه للتسجيل حتى يتم إلغاء الحظر.",
         accountExists: "يوجد حساب بالفعل بهذا البريد الإلكتروني.",
-        accountCreated: "تم إنشاء الحساب بنجاح.",
+        accountCreated: "تم إنشاء الحساب بنجاح. سجّل الدخول للمتابعة.",
         userNotFound: "تعذر العثور على هذا المستخدم.",
         allFieldsRequired: "جميع حقول المستخدم مطلوبة قبل حفظ التغييرات.",
         emailConflict: "يوجد حساب آخر يستخدم هذا البريد الإلكتروني.",
@@ -2124,6 +2144,10 @@ const translations = {
       ],
     },
     auth: {
+      actions: {
+        showPassword: "הצג",
+        hidePassword: "הסתר",
+      },
       fields: {
         email: "אימייל",
         password: "סיסמה",
@@ -2180,6 +2204,7 @@ const translations = {
       },
       feedback: {
         enterCredentials: "הזן גם אימייל וגם סיסמה כדי להמשיך.",
+        forgotEmailRequired: "הזן את כתובת האימייל שלך כדי להמשיך.",
         accountNotFound: "לא מצאנו חשבון עם כתובת האימייל הזו.",
         blockedAccount: "החשבון הזה חסום. נא לפנות למנהל המערכת.",
         useUserLogin: "השתמש בלשונית המשתמש עבור חשבונות רגילים.",
@@ -2187,10 +2212,15 @@ const translations = {
         invalidPassword: "הסיסמה שהזנת שגויה.",
         loginSuccessful: "ההתחברות הצליחה.",
         completeRegistration: "השלם את כל שדות ההרשמה לפני יצירת החשבון.",
+        completePasswordReset: "הזן את הסיסמה החדשה ואשר אותה כדי להמשיך.",
         shortPassword: "השתמש בסיסמה באורך של לפחות 6 תווים.",
+        resetRequestAccepted: "החשבון נמצא. הגדר סיסמה חדשה כדי להמשיך.",
+        passwordsDoNotMatch: "אימות הסיסמה אינו תואם.",
+        resetRequestExpired: "יש להתחיל מחדש מעמוד שכחת הסיסמה.",
+        passwordResetSuccessful: "הסיסמה עודכנה. התחבר עם הסיסמה החדשה שלך.",
         blockedRegistration: "האימייל הזה חסום ולא ניתן להשתמש בו להרשמה עד להסרת החסימה.",
         accountExists: "כבר קיים חשבון עם האימייל הזה.",
-        accountCreated: "החשבון נוצר בהצלחה.",
+        accountCreated: "החשבון נוצר בהצלחה. התחבר כדי להמשיך.",
         userNotFound: "לא ניתן למצוא את המשתמש הזה.",
         allFieldsRequired: "כל שדות המשתמש נדרשים לפני שמירת השינויים.",
         emailConflict: "חשבון אחר כבר משתמש באימייל הזה.",

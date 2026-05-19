@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PasswordField from "../components/PasswordField";
 import { useAuth } from "../context/AuthContext";
 import { useLocale } from "../context/LocaleContext";
 
@@ -638,11 +639,10 @@ export default function DashboardPage() {
                 <label className="form-label" htmlFor="createPassword">
                   {t("auth.fields.password")}
                 </label>
-                <input
+                <PasswordField
                   id="createPassword"
                   name="password"
                   className="form-control app-form-control"
-                  type="password"
                   value={createState.password}
                   onChange={handleCreateChange}
                   placeholder={t("auth.signup.passwordPlaceholder")}
