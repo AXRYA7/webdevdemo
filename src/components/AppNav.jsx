@@ -1,26 +1,60 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useLocale } from "../context/LocaleContext";
 import ThemeToggle from "./ThemeToggle";
 
 const links = [
-  { key: "nav.home", to: "/" },
+  { key: "nav.about", to: "/about" },
   { key: "nav.services", to: "/services" },
+  { key: "nav.contact", to: "/contact" },
+];
+
+const homePages = [
+  { key: "nav.homeOne", to: "/" },
+  { key: "nav.homeTwo", to: "/home-2" },
 ];
 
 export default function AppNav() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [homeMenuOpen, setHomeMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { currentUser, isAdmin, logout } = useAuth();
   const { locale, localeOptions, setLocale, t } = useLocale();
+  const homeMenuRef = useRef(null);
+  const profileMenuRef = useRef(null);
 
   useEffect(() => {
     setMenuOpen(false);
+    setHomeMenuOpen(false);
     setProfileOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    function handlePointerDown(event) {
+      if (
+        homeMenuRef.current &&
+        !homeMenuRef.current.contains(event.target)
+      ) {
+        setHomeMenuOpen(false);
+      }
+
+      if (
+        profileMenuRef.current &&
+        !profileMenuRef.current.contains(event.target)
+      ) {
+        setProfileOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handlePointerDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+    };
+  }, []);
 
   const initials = currentUser
     ? `${currentUser.firstName[0] ?? ""}${currentUser.lastName[0] ?? ""}`
@@ -31,6 +65,9 @@ export default function AppNav() {
   const navLinks = isAdmin
     ? [...links, { label: "Dashboard", to: "/admin/dashboard" }]
     : links;
+  const isHomeSectionActive = homePages.some(
+    (page) => page.to === location.pathname,
+  );
 
   function handleLogout() {
     logout();
@@ -63,6 +100,40 @@ export default function AppNav() {
           } nav-flyout absolute left-3 right-3 top-[calc(100%+0.75rem)] flex-col gap-4 rounded-[2rem] border p-4 shadow-2xl md:static md:flex md:min-w-0 md:flex-1 md:flex-row md:items-center md:gap-6 md:border-0 md:bg-transparent md:p-0 md:shadow-none`}
         >
           <nav className="nav-primary flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
+            <div ref={homeMenuRef} className="nav-home-menu">
+              <button
+                type="button"
+                className={`nav-link-custom nav-home-trigger ${
+                  isHomeSectionActive || homeMenuOpen ? "is-active" : ""
+                } ${homeMenuOpen ? "is-open" : ""}`}
+                aria-expanded={homeMenuOpen}
+                onClick={() => {
+                  setHomeMenuOpen((currentValue) => !currentValue);
+                  setProfileOpen(false);
+                }}
+              >
+                {t("nav.home")}
+                <span className="nav-home-caret" aria-hidden="true" />
+              </button>
+
+              {homeMenuOpen ? (
+                <div className="nav-home-dropdown">
+                  {homePages.map((page) => (
+                    <NavLink
+                      key={page.to}
+                      to={page.to}
+                      className={({ isActive }) =>
+                        `nav-home-link text-decoration-none ${isActive ? "is-active" : ""}`
+                      }
+                      onClick={() => setHomeMenuOpen(false)}
+                    >
+                      {t(page.key)}
+                    </NavLink>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+
             {navLinks.map((link) => (
               <NavLink
                 key={link.to}
@@ -101,12 +172,15 @@ export default function AppNav() {
             </div>
             <ThemeToggle />
             {currentUser ? (
-              <div className="profile-menu">
+              <div ref={profileMenuRef} className="profile-menu">
                 <button
                   type="button"
                   className="profile-trigger"
                   aria-expanded={profileOpen}
-                  onClick={() => setProfileOpen((currentValue) => !currentValue)}
+                  onClick={() => {
+                    setProfileOpen((currentValue) => !currentValue);
+                    setHomeMenuOpen(false);
+                  }}
                 >
                   <span className="profile-avatar">{initials}</span>
                   <span className="profile-copy">
@@ -129,8 +203,14 @@ export default function AppNav() {
                     <Link className="profile-link" to="/">
                       {t("nav.home")}
                     </Link>
+                    <Link className="profile-link" to="/about">
+                      {t("nav.about")}
+                    </Link>
                     <Link className="profile-link" to="/services">
                       {t("nav.services")}
+                    </Link>
+                    <Link className="profile-link" to="/contact">
+                      {t("nav.contact")}
                     </Link>
                     <button
                       type="button"
