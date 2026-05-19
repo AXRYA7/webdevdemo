@@ -7,6 +7,7 @@ import ThemeToggle from "./ThemeToggle";
 const links = [
   { key: "nav.about", to: "/about" },
   { key: "nav.services", to: "/services" },
+  { key: "nav.blog", to: "/blog" },
   { key: "nav.contact", to: "/contact" },
 ];
 
@@ -208,6 +209,9 @@ export default function AppNav() {
                     </Link>
                     <Link className="profile-link" to="/services">
                       {t("nav.services")}
+                    </Link>
+                    <Link className="profile-link" to="/blog">
+                      {t("nav.blog")}
                     </Link>
                     <Link className="profile-link" to="/contact">
                       {t("nav.contact")}

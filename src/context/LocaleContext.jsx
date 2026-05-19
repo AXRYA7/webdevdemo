@@ -11,6 +11,7 @@ const LOCALE_OPTIONS = [
 const translations = {
   en: {
     nav: {
+      blog: "Blog",
       contact: "Contact us",
       home: "Home",
       homeOne: "Home 1",
@@ -75,6 +76,12 @@ const translations = {
       defaultSubject: "HR enquiry from website",
       mailBodyName: "Name:",
       mailBodyEmail: "Email:",
+    },
+    blog: {
+      eyebrow: "Insights from Enkonix",
+      comingSoon: "Coming soon",
+      copy:
+        "The Enkonix blog page is being prepared and will be available here soon.",
     },
     theme: {
       light: "Light",
@@ -776,6 +783,7 @@ const translations = {
   },
   ar: {
     nav: {
+      blog: "المدونة",
       contact: "اتصل بنا",
       home: "الرئيسية",
       homeOne: "الرئيسية 1",
@@ -840,6 +848,12 @@ const translations = {
       defaultSubject: "استفسار موارد بشرية من الموقع",
       mailBodyName: "الاسم:",
       mailBodyEmail: "البريد الإلكتروني:",
+    },
+    blog: {
+      eyebrow: "رؤى من Enkonix",
+      comingSoon: "قريبًا",
+      copy:
+        "يتم حاليًا إعداد صفحة مدونة Enkonix وستكون متاحة هنا قريبًا.",
     },
     theme: {
       light: "فاتح",
@@ -1530,6 +1544,7 @@ const translations = {
   },
   he: {
     nav: {
+      blog: "בלוג",
       contact: "צור קשר",
       home: "בית",
       homeOne: "בית 1",
@@ -1594,6 +1609,12 @@ const translations = {
       defaultSubject: "פניית משאבי אנוש מהאתר",
       mailBodyName: "שם:",
       mailBodyEmail: "אימייל:",
+    },
+    blog: {
+      eyebrow: "תובנות מ-Enkonix",
+      comingSoon: "בקרוב",
+      copy:
+        "עמוד הבלוג של Enkonix נמצא כעת בהכנה ויהיה זמין כאן בקרוב.",
     },
     theme: {
       light: "בהיר",
