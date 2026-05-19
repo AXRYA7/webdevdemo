@@ -1521,6 +1521,39 @@ h4,
   gap: 1rem;
 }
 
+.password-field {
+  position: relative;
+}
+
+.password-input {
+  padding-inline-end: 5.4rem;
+}
+
+.password-field-toggle {
+  position: absolute;
+  inset-inline-end: 0.75rem;
+  top: 50%;
+  z-index: 1;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--brand);
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1;
+  padding: 0.15rem 0.2rem;
+  transform: translateY(-50%);
+}
+
+.password-field-toggle:hover {
+  color: var(--brand-strong);
+}
+
+.password-field-toggle:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 0.18rem rgba(36, 60, 255, 0.16);
+}
+
 .app-form-control {
   min-height: 2.95rem;
   border-radius: 0.95rem;

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import AuthShell from "../components/AuthShell";
+import PasswordField from "../components/PasswordField";
 import { useAuth } from "../context/AuthContext";
 import { useLocale } from "../context/LocaleContext";
 
@@ -45,7 +46,13 @@ export default function SignupPage() {
       return;
     }
 
-    navigate("/");
+    navigate("/auth/login", {
+      state: {
+        email: result.email,
+        feedback: result.message,
+        mode: "user",
+      },
+    });
   }
 
   return (
@@ -129,11 +136,10 @@ export default function SignupPage() {
             <label className="form-label" htmlFor="signupPassword">
               {t("auth.fields.password")}
             </label>
-            <input
+            <PasswordField
               id="signupPassword"
               name="password"
               className="form-control app-form-control"
-              type="password"
               value={formState.password}
               onChange={handleChange}
               placeholder={t("auth.signup.passwordPlaceholder")}
