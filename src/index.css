@@ -193,6 +193,10 @@ h4,
   min-width: 0;
 }
 
+.nav-services-menu {
+  position: relative;
+}
+
 .nav-home-trigger {
   display: inline-flex;
   align-items: center;
@@ -231,6 +235,12 @@ h4,
   padding: 0.5rem;
 }
 
+.nav-services-dropdown {
+  min-width: 18.5rem;
+  max-height: min(70vh, 28rem);
+  overflow-y: auto;
+}
+
 .nav-home-link {
   width: 100%;
   border-radius: 0.95rem;
@@ -244,6 +254,11 @@ h4,
 .nav-home-link.is-active {
   background: var(--surface-muted);
   color: var(--text-primary);
+}
+
+.nav-service-link {
+  white-space: normal;
+  line-height: 1.45;
 }
 
 .theme-switch {
@@ -2072,6 +2087,11 @@ h4,
     position: static;
     min-width: 100%;
     margin-top: 0.65rem;
+  }
+
+  .nav-services-dropdown {
+    min-width: 100%;
+    max-height: none;
   }
 
   .profile-dropdown {

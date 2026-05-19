@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { getServiceList } from "../content/serviceCatalog";
 import { useAuth } from "../context/AuthContext";
 import { useLocale } from "../context/LocaleContext";
 import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { key: "nav.about", to: "/about" },
-  { key: "nav.services", to: "/services" },
   { key: "nav.blog", to: "/blog" },
   { key: "nav.contact", to: "/contact" },
 ];
@@ -19,17 +19,21 @@ const homePages = [
 export default function AppNav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [homeMenuOpen, setHomeMenuOpen] = useState(false);
+  const [servicesMenuOpen, setServicesMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { currentUser, isAdmin, logout } = useAuth();
   const { locale, localeOptions, setLocale, t } = useLocale();
+  const servicePages = getServiceList(locale);
   const homeMenuRef = useRef(null);
+  const servicesMenuRef = useRef(null);
   const profileMenuRef = useRef(null);
 
   useEffect(() => {
     setMenuOpen(false);
     setHomeMenuOpen(false);
+    setServicesMenuOpen(false);
     setProfileOpen(false);
   }, [location.pathname]);
 
@@ -40,6 +44,13 @@ export default function AppNav() {
         !homeMenuRef.current.contains(event.target)
       ) {
         setHomeMenuOpen(false);
+      }
+
+      if (
+        servicesMenuRef.current &&
+        !servicesMenuRef.current.contains(event.target)
+      ) {
+        setServicesMenuOpen(false);
       }
 
       if (
@@ -69,6 +80,7 @@ export default function AppNav() {
   const isHomeSectionActive = homePages.some(
     (page) => page.to === location.pathname,
   );
+  const isServicesSectionActive = location.pathname.startsWith("/services");
 
   function handleLogout() {
     logout();
@@ -110,6 +122,7 @@ export default function AppNav() {
                 aria-expanded={homeMenuOpen}
                 onClick={() => {
                   setHomeMenuOpen((currentValue) => !currentValue);
+                  setServicesMenuOpen(false);
                   setProfileOpen(false);
                 }}
               >
@@ -129,6 +142,44 @@ export default function AppNav() {
                       onClick={() => setHomeMenuOpen(false)}
                     >
                       {t(page.key)}
+                    </NavLink>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+
+            <div
+              ref={servicesMenuRef}
+              className="nav-home-menu nav-services-menu"
+            >
+              <button
+                type="button"
+                className={`nav-link-custom nav-home-trigger nav-services-trigger ${
+                  isServicesSectionActive || servicesMenuOpen ? "is-active" : ""
+                } ${servicesMenuOpen ? "is-open" : ""}`}
+                aria-expanded={servicesMenuOpen}
+                onClick={() => {
+                  setServicesMenuOpen((currentValue) => !currentValue);
+                  setHomeMenuOpen(false);
+                  setProfileOpen(false);
+                }}
+              >
+                {t("nav.services")}
+                <span className="nav-home-caret" aria-hidden="true" />
+              </button>
+
+              {servicesMenuOpen ? (
+                <div className="nav-home-dropdown nav-services-dropdown">
+                  {servicePages.map((service) => (
+                    <NavLink
+                      key={service.slug}
+                      to={`/services/${service.slug}`}
+                      className={({ isActive }) =>
+                        `nav-home-link nav-service-link text-decoration-none ${isActive ? "is-active" : ""}`
+                      }
+                      onClick={() => setServicesMenuOpen(false)}
+                    >
+                      {service.title}
                     </NavLink>
                   ))}
                 </div>
@@ -181,6 +232,7 @@ export default function AppNav() {
                   onClick={() => {
                     setProfileOpen((currentValue) => !currentValue);
                     setHomeMenuOpen(false);
+                    setServicesMenuOpen(false);
                   }}
                 >
                   <span className="profile-avatar">{initials}</span>
