@@ -21,7 +21,7 @@ export default function ServiceDetailPage() {
             </Link>
 
             <div className="space-y-3">
-              <span className="eyebrow-pill home-two-eyebrow">
+              <span className="eyebrow-pill home-two-eyebrow transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
                 {t("services.detailEyebrow")}
               </span>
               <h1 className="max-w-3xl text-4xl font-black leading-tight md:text-5xl">
@@ -34,18 +34,18 @@ export default function ServiceDetailPage() {
 
             <div className="d-flex flex-wrap gap-2">
               {service.focus.map((item) => (
-                <span key={item} className="service-detail-tag">
+                <span key={item} className="service-detail-tag transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
                   {item}
                 </span>
               ))}
             </div>
           </div>
 
-          <article className="home-two-glass-card service-detail-summary-card">
-            <span className="service-card-label text-white/72">
+          <article className="home-two-glass-card service-detail-summary-card ">
+            <span className="service-card-label text-white/72 ">
               {t("services.detailOverview")}
             </span>
-            <h2 className="mt-3 mb-0 text-3xl font-black text-white md:text-4xl">
+            <h2 className="mt-3 mb-0 text-3xl font-black text-white md:text-4xl ">
               {service.title}
             </h2>
             <p className="mt-3 mb-0 text-white/80">{service.summary}</p>
@@ -54,8 +54,8 @@ export default function ServiceDetailPage() {
       </section>
 
       <section className="grid gap-4 lg:grid-cols-3">
-        <article className="service-detail-panel">
-          <span className="service-card-label">{t("services.detailFocus")}</span>
+        <article className="service-detail-panel transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
+          <span className="service-card-label ">{t("services.detailFocus")}</span>
           <ul className="service-detail-list">
             {service.focus.map((item) => (
               <li key={item}>{item}</li>
@@ -63,8 +63,8 @@ export default function ServiceDetailPage() {
           </ul>
         </article>
 
-        <article className="service-detail-panel">
-          <span className="service-card-label">{t("services.detailScope")}</span>
+        <article className="service-detail-panel transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
+          <span className="service-card-label ">{t("services.detailScope")}</span>
           <ul className="service-detail-list">
             {service.scope.map((item) => (
               <li key={item}>{item}</li>
@@ -72,8 +72,8 @@ export default function ServiceDetailPage() {
           </ul>
         </article>
 
-        <article className="service-detail-panel">
-          <span className="service-card-label">{t("services.detailValue")}</span>
+        <article className="service-detail-panel transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
+          <span className="service-card-label ">{t("services.detailValue")}</span>
           <ul className="service-detail-list">
             {service.value.map((item) => (
               <li key={item}>{item}</li>
@@ -83,17 +83,17 @@ export default function ServiceDetailPage() {
       </section>
 
       <section className="rounded-[2rem] border services-shell p-3 md:p-4">
-        <div className="grid gap-4 lg:grid-cols-[0.92fr_1.08fr]">
-          <article className="service-feature">
-            <div className="space-y-3">
-              <span className="eyebrow-pill">{t("services.detailCtaEyebrow")}</span>
-              <h2 className="text-3xl font-black leading-tight md:text-4xl">
+        <div className="grid gap-4 lg:grid-cols-[0.92fr_1.08fr] ">
+          <article className="service-feature ">
+            <div className="space-y-3 ">
+              <span className="eyebrow-pill transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">{t("services.detailCtaEyebrow")}</span>
+              <h2 className="text-3xl font-black leading-tight md:text-4xl ">
                 {t("services.detailCtaTitle")}
               </h2>
-              <p className="service-copy">{t("services.detailCtaCopy")}</p>
+              <p className="service-copy ">{t("services.detailCtaCopy")}</p>
             </div>
 
-            <div className="d-flex flex-wrap gap-3">
+            <div className="d-flex flex-wrap gap-3 ">
               <Link className="btn app-btn-primary" to="/contact">
                 {t("services.detailCtaPrimary")}
               </Link>
@@ -105,8 +105,8 @@ export default function ServiceDetailPage() {
 
           <div className="grid gap-4 md:grid-cols-3">
             {service.value.map((item) => (
-              <article key={item} className="service-card insight-card">
-                <span className="service-card-label">{t("services.detailValue")}</span>
+              <article key={item} className="service-card insight-card transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
+                <span className="service-card-label ">{t("services.detailValue")}</span>
                 <p>{item}</p>
               </article>
             ))}

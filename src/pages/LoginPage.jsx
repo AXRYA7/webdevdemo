@@ -98,7 +98,7 @@ export default function LoginPage() {
               {t("auth.fields.email")}
             </label>
             <input
-              id="loginEmail"
+              id="loginEmail" 
               name="email"
               className="form-control app-form-control"
               type="email"
