@@ -5,7 +5,7 @@ export default function BlogPage() {
 
   return (
     <section className="overflow-hidden rounded-[2.25rem] border about-hero">
-      <div className="p-4 text-center md:p-5 lg:p-6 xl:p-8">
+      <div className="p-4 text-center md:p-5 lg:p-6 xl:p-8 transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
         <div className="mx-auto flex min-h-[22rem] max-w-3xl flex-col items-center justify-center gap-4 text-white">
           <span className="eyebrow-pill about-eyebrow transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">{t("blog.eyebrow")}</span>
           <h1 className="text-4xl font-black leading-tight md:text-5xl">
