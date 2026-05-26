@@ -23,13 +23,13 @@ export default function AboutPage() {
         <div className="grid gap-4 p-4 md:p-5 lg:grid-cols-[0.96fr_1.04fr] lg:p-6 xl:p-8">
           <div className="space-y-4 text-white">
             <span className="eyebrow-pill about-eyebrow">{t("about.eyebrow")}</span>
-            <div className="space-y-3">
+            <div className="space-y-3 ">
               <h1 className="max-w-3xl text-4xl font-black leading-tight md:text-5xl">
                 {t("about.titleLine1")}
                 <br />
                 {t("about.titleLine2")}
               </h1>
-              <p className="max-w-2xl text-base text-white/78 md:text-lg">
+              <p className="max-w-2xl text-base text-white/78 md:text-lg ">
                 {t("about.copy")}
               </p>
             </div>
@@ -46,7 +46,7 @@ export default function AboutPage() {
 
           <div className="grid gap-3 sm:grid-cols-2">
             {facts.map((fact) => (
-              <article key={fact.label} className="marketing-stat-card">
+              <article key={fact.label} className="marketing-stat-card transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
                 <strong>{fact.value}</strong>
                 <span>{fact.label}</span>
               </article>
@@ -68,7 +68,7 @@ export default function AboutPage() {
 
             <div className="grid gap-3">
               {storyCards.map((card) => (
-                <article key={card.title} className="service-card insight-card">
+                <article key={card.title} className="service-card insight-card transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
                   <span className="service-card-label">{t("about.storyLabel")}</span>
                   <h3>{card.title}</h3>
                   <p>{card.summary}</p>
@@ -89,7 +89,7 @@ export default function AboutPage() {
 
             <div className="grid gap-4 md:grid-cols-2">
               {values.map((value) => (
-                <article key={value.title} className="service-card insight-card">
+                <article key={value.title} className="service-card insight-card transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
                   <span className="service-card-label">{t("about.valuesLabel")}</span>
                   <h3>{value.title}</h3>
                   <p>{value.summary}</p>
@@ -111,7 +111,7 @@ export default function AboutPage() {
 
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {locations.map((location) => (
-              <article key={location.title} className="service-card insight-card">
+              <article key={location.title} className="service-card insight-card transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
                 <span className="service-card-label">{t("about.footprintLabel")}</span>
                 <h3>{location.title}</h3>
                 <p>{location.summary}</p>
@@ -135,7 +135,7 @@ export default function AboutPage() {
 
           <div className="grid gap-4 md:grid-cols-2">
             {industries.map((industry) => (
-              <article key={industry.title} className="marketing-dark-card">
+              <article key={industry.title} className="marketing-dark-card transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
                 <strong>{industry.title}</strong>
                 <p>{industry.summary}</p>
               </article>
