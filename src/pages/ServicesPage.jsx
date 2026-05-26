@@ -14,7 +14,7 @@ export default function ServicesPage() {
         <div className="p-4 md:p-5 lg:p-6 xl:p-8">
           <article className="services-hero-panel">
             <div className="space-y-3">
-              <span className="eyebrow-pill services-eyebrow">{t("services.eyebrow")}</span>
+              <span className="eyebrow-pill services-eyebrow transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">{t("services.eyebrow")}</span>
               <h1 className="max-w-4xl text-4xl font-black leading-tight text-white md:text-5xl">
                 {t("services.title")}
               </h1>
@@ -23,7 +23,7 @@ export default function ServicesPage() {
 
             <div className="d-flex flex-wrap gap-3">
               <Link
-                className="btn app-btn-primary"
+                className="btn app-btn-primary "
                 to={
                   isAdmin
                     ? "/admin/dashboard"
@@ -49,7 +49,7 @@ export default function ServicesPage() {
       <section className="rounded-[2rem] border services-shell p-3 md:p-4">
         <div className="space-y-4">
           <div className="service-directory-note">
-            <span className="service-card-label">{t("services.directoryLabel")}</span>
+            <span className="service-card-label ">{t("services.directoryLabel")}</span>
             <p className="mb-0">{t("services.directoryCopy")}</p>
           </div>
 
@@ -57,7 +57,7 @@ export default function ServicesPage() {
             {services.map((service) => (
               <Link
                 key={service.slug}
-                className="service-card service-directory-card text-decoration-none"
+                className="service-card service-directory-card text-decoration-none "
                 to={`/services/${service.slug}`}
               >
                 <span className="service-card-label">{t("services.cardLabel")}</span>
@@ -73,7 +73,7 @@ export default function ServicesPage() {
       <section className="rounded-[2rem] border services-shell p-3 md:p-4">
         <div className="space-y-4">
           <div className="space-y-3">
-            <span className="eyebrow-pill">{t("services.detailEyebrow")}</span>
+            <span className="eyebrow-pill transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">{t("services.detailEyebrow")}</span>
             <h2 className="text-3xl font-black leading-tight md:text-4xl">
               {t("services.directoryTitle")}
             </h2>
@@ -82,7 +82,7 @@ export default function ServicesPage() {
 
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {services.map((service, index) => (
-              <article key={service.slug} className="service-card insight-card">
+              <article key={service.slug} className="service-card insight-card transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
                 <span className="service-card-label">
                   {`${String(index + 1).padStart(2, "0")} / 07`}
                 </span>

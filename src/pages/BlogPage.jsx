@@ -11,7 +11,7 @@ export default function BlogPage() {
           <h1 className="text-4xl font-black leading-tight md:text-5xl">
             {t("blog.comingSoon")}
           </h1>
-          <p className="max-w-2xl text-base text-white/78 md:text-lg">
+          <p className="max-w-2xl text-base  text-white/78 md:text-lg">
             {t("blog.copy")}
           </p>
         </div>

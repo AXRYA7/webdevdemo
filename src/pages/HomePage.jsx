@@ -21,10 +21,10 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="overflow-hidden rounded-[2.25rem] border hero-panel">
-        <div className="grid lg:grid-cols-[1.08fr_0.92fr]">
-          <div className="p-4 md:p-5 lg:p-6 xl:p-8">
-            <span className="eyebrow-pill">{t("home.heroKicker")}</span>
+      <section className="overflow-hidden rounded-[2.25rem] border hero-panel ">
+        <div className="grid lg:grid-cols-[1.08fr_0.92fr] ">
+          <div className="p-4 md:p-5 lg:p-6 xl:p-8 ">
+            <span className="eyebrow-pill ">{t("home.heroKicker")}</span>
             <h1 className="mt-4 max-w-xl text-4xl font-black leading-tight md:text-5xl">
               {t("home.heroTitleLine1")}
               <br />
@@ -34,7 +34,7 @@ export default function HomePage() {
               {t("home.heroCopy")}
             </p>
 
-            <div className="mt-5 flex flex-wrap items-center gap-3">
+            <div className="mt-5 flex flex-wrap items-center gap-3 ">
               <Link className="btn app-btn-primary" to={primaryAction.to}>
                 {primaryAction.label}
               </Link>
@@ -50,7 +50,7 @@ export default function HomePage() {
               {highlights.map((item) => (
                 <article
                   key={item.label}
-                  className={`preview-card ${item.cta ? "preview-card-cta" : ""}`}
+                  className={`preview-card transform transition-transform duration-300 hover:scale-[1.02] ${item.cta ? "preview-card-cta" : ""}`}
                 >
                   <span>{item.label}</span>
                   <strong>{item.value}</strong>
@@ -97,10 +97,10 @@ export default function HomePage() {
             </div>
 
             <div className="d-flex flex-wrap gap-3">
-              <Link className="btn app-btn-primary" to="/home-2">
+              <Link className="btn app-btn-primary transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl" to="/home-2">
                 {t("home.proofPrimary")}
               </Link>
-              <Link className="btn app-btn-ghost" to="/about">
+              <Link className="btn app-btn-ghost transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl" to="/about">
                 {t("home.proofSecondary")}
               </Link>
             </div>
@@ -108,7 +108,7 @@ export default function HomePage() {
 
           <div className="grid gap-4 md:grid-cols-3">
             {storyCards.map((card) => (
-              <article key={card.title} className="service-card insight-card">
+              <article key={card.title} className="service-card insight-card transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
                 <span className="service-card-label">{t("home.storyLabel")}</span>
                 <h3>{card.title}</h3>
                 <p>{card.summary}</p>
@@ -130,7 +130,7 @@ export default function HomePage() {
 
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {servicePillars.map((pillar) => (
-              <article key={pillar.title} className="service-card insight-card">
+              <article key={pillar.title} className="service-card insight-card transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
                 <span className="service-card-label">{t("home.pillarsLabel")}</span>
                 <h3>{pillar.title}</h3>
                 <p>{pillar.summary}</p>
@@ -140,14 +140,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="rounded-[2rem] border services-shell p-3 md:p-4">
-        <div className="grid gap-4 lg:grid-cols-[0.86fr_1.14fr]">
-          <article className="service-feature home-one-process-panel">
-            <div className="space-y-3">
-              <span className="eyebrow-pill home-one-process-eyebrow">
+      <section className="rounded-[2rem] border services-shell p-3 md:p-4 ">
+        <div className="grid gap-4 lg:grid-cols-[0.86fr_1.14fr] ">
+          <article className="service-feature home-one-process-panel ">
+            <div className="space-y-3 ">
+              <span className="eyebrow-pill home-one-process-eyebrow ">
                 {t("home.processLabel")}
               </span>
-              <h2 className="text-3xl font-black leading-tight home-one-process-title md:text-4xl">
+              <h2 className="text-3xl font-black leading-tight home-one-process-title md:text-4xl ">
                 {t("home.processTitle")}
               </h2>
               <p className="home-one-process-copy">{t("home.processCopy")}</p>
@@ -156,7 +156,7 @@ export default function HomePage() {
 
           <div className="grid gap-4 md:grid-cols-2">
             {deliverySteps.map((step) => (
-              <article key={step.step} className="home-one-step-card">
+              <article key={step.step} className="home-one-step-card transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
                 <span>{step.step}</span>
                 <strong>{step.title}</strong>
                 <p>{step.summary}</p>
@@ -178,7 +178,7 @@ export default function HomePage() {
 
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {industryCards.map((industry) => (
-              <article key={industry.title} className="service-card insight-card">
+              <article key={industry.title} className="service-card insight-card transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
                 <span className="service-card-label">{t("home.industriesLabel")}</span>
                 <h3>{industry.title}</h3>
                 <p>{industry.summary}</p>
@@ -211,7 +211,7 @@ export default function HomePage() {
 
           <div className="grid gap-4 md:grid-cols-3">
             {proofStats.map((stat) => (
-              <article key={stat.label} className="marketing-dark-card">
+              <article key={stat.label} className="marketing-dark-card transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl">
                 <strong>{stat.value}</strong>
                 <span>{stat.label}</span>
               </article>
