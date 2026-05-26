@@ -52,7 +52,7 @@ export default function ContactPage() {
 
             <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-1">
               {cards.map((card) => (
-                <article key={card.title} className="service-card insight-card">
+                <article key={card.title} className="service-card insight-card transform transition-transform duration-300 hover:scale-[1.05] hover:shadow-lg">
                   <span className="service-card-label">{t("contact.cardLabel")}</span>
                   <h2>{card.title}</h2>
                   <p>{card.summary}</p>
